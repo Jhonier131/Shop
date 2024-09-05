@@ -12,10 +12,9 @@ export class WomensComponent implements OnInit {
   // public originClothes: any = [];
   public loader: boolean = false;
   public allClothes: any = [];
-  public pagination = {
+  public pagination: any = {
     page: 1,
-    limit: 10,
-    nextPage: null
+    nextPage: 2
   }
   clotheSelected: any = null;
   tallas: string[] = ['S', 'M', 'L', 'XL', 'XXL'];
@@ -35,17 +34,22 @@ export class WomensComponent implements OnInit {
     this.toggleBodyScroll(this.loader);
     this.irAlInicio();
     setTimeout(() => {
-      this.getWomensClothes(this.pagination);
+      this.getWomensClothes();
     }, 1000)
   }
   
 
-  getWomensClothes(pagination: any) {
-    this.shopServices.getClothesWomens(pagination).subscribe( respuesta => {
+  getWomensClothes() {
+
+    this.shopServices.getClothesWomens(this.pagination).subscribe( respuesta => {
       console.log('respuesta', respuesta);
-      this.allClothes = respuesta.payload.resultDocs;
-      this.loader = false;
-      this.toggleBodyScroll(this.loader);
+
+      if(respuesta.payload) {
+        this.allClothes = respuesta.payload.resultDocs;
+        this.loader = false;
+        this.toggleBodyScroll(this.loader);
+        this.pagination = {page: respuesta.payload.nextPage, nextPage: respuesta.payload.nextPage};
+      }
     })
   }
 
@@ -56,10 +60,10 @@ export class WomensComponent implements OnInit {
     });
   }
 
-  nextPage(page: number) {
-    this.pagination.page = page;
-    this.getWomensClothes(this.pagination);
-  }
+  // nextPage(page: number) {
+  //   this.pagination.page = page;
+  //   this.getWomensClothes(this.pagination);
+  // }
 
   goCategory(category: number): void {
     this.router.navigateByUrl('/shop/clothes-category/' + category);
@@ -76,29 +80,45 @@ export class WomensComponent implements OnInit {
   @ViewChild('womensSection', { static: false }) womensSection!: ElementRef;
 
   @HostListener('window:scroll', ['$event']) onScrollEvent($event: any) {
-    const element = this.womensSection.nativeElement;
-    if(window.scrollY >= 700) {
-      if(window.scrollY - element.scrollHeight > 50 && !this.loader) {
-        this.getMoreClothes();
-      }
+
+    const documentHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    const viewportHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+
+    // console.log('Altura del documento:', documentHeight);
+    // console.log('Scroll Top:', scrollTop);
+    // console.log('Altura del viewport:', viewportHeight);
+
+    if(scrollTop + viewportHeight >= documentHeight) {
+      console.log('Fin de la página');
+      this.getMoreClothes();
     }
+
+    // const element = this.womensSection.nativeElement;
+    // if(window.scrollY >= 700) {
+    //   if(window.scrollY - element.scrollHeight > 50 && !this.loader) {
+    //     this.getMoreClothes();
+    //     console.log('Holi');
+    //   }
+    // }
+
+
   }
 
   getMoreClothes() {
 
-    const firstClothes = this.pagination;
-
-    if(!this.pagination.nextPage) firstClothes.page = 1;
-
-    this.shopServices.getClothesWomens(firstClothes).subscribe( respuesta => {
-      if(respuesta.payload.length) {
-        this.pagination = {
-          ...this.pagination,
-          nextPage: respuesta.payload.nextPage
+    if(this.pagination.page) {
+      this.shopServices.getClothesWomens(this.pagination).subscribe( respuesta => {
+  
+        console.log('Respuesta', respuesta);
+  
+        if(respuesta.payload) {
+          this.pagination = {page: respuesta.payload.nextPage, nextPage: respuesta.payload.nextPage};
+          this.allClothes = [...this.allClothes, ...respuesta.payload.resultDocs];
+  
         }
-        this.allClothes = [...this.allClothes, ...respuesta.payload.resultDocs];
-      }
-    })
+      })
+    }
   }
 
 }

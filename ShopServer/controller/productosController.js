@@ -6,9 +6,9 @@ const getAllProducts = async (req, res) => {
         // const products = await productsW.find();
         // response(res, { payload: products})
 
-        console.log('Datos paginacion', req.body);
-
         // const { page, limit, sort } = req.body;
+
+        console.log(req.body);
 
         const page = parseInt(req.body.page) || 1;  // Página actual, por defecto 1
         const limit = parseInt(req.body.limit) || 10; // Límite de productos por página, por defecto 10
@@ -38,6 +38,8 @@ const getAllProducts = async (req, res) => {
             nextPage: result.nextPage, // Número de la página siguiente
             remainingPages: remainingPages // Páginas restantes
         }
+
+        console.log('payload -> ', dataPayload);
 
         // Envía la respuesta con los datos paginados
         response(res, {payload: dataPayload});
