@@ -11,6 +11,7 @@ import { carReducer } from './core/store/car/car-reducer'
 import { localStorageSync } from 'ngrx-store-localstorage';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 const reducers: ActionReducerMap<any> = {
   contadorCarrito: counterReducer,
@@ -40,7 +41,8 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     HttpClientModule,
     SharedModule,
     StoreModule.forRoot(reducers, {metaReducers}),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

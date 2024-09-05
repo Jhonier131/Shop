@@ -14,7 +14,11 @@ export class ShopService {
 
   constructor(private http: HttpClient) { }
 
-  public getClothesWomens(): Observable<any> {
-    return this.http.get<any>(environment.api + 'r1/allProducts');
+  public getClothesWomens(pagination: any): Observable<any> {
+    return this.http.post<any>(environment.api + 'r1/allProducts', pagination, this.headers);
+  }
+
+  public getByCategory(category: any): Observable<any> {
+    return this.http.get<any>(environment.api + 'r1/getProductsByC/' + category);
   }
 }

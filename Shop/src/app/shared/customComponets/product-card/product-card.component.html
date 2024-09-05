@@ -1,0 +1,26 @@
+<div class="container_card">
+    <figure>
+        <div class="list_size" [ngClass]="{'souldOut_image': !clothe.size}">
+            <p *ngIf="clothe.size && clothe.offSale > 0">-{{clothe.offSale}}%</p>
+            <img src="{{clothe.image}}" alt="Imagen del producto." />
+            <div class="tallas-container" *ngIf="clothe.size; else souldOut">
+                <button *ngFor="let talla of clothe.size" (click)="seleccionarTalla(clothe, talla)" [class.selected]="clothe?.talla === talla">
+                    {{ talla }}
+                </button>
+            </div>
+            <ng-template #souldOut>
+                <div class="container_souldout">AGOTADO</div>
+            </ng-template>
+        </div>
+    </figure>
+    <div class="card_body">
+        <h1>{{clothe.name}}</h1>
+        <div class="price">
+            <p *ngIf="clothe.size || clothe.size">${{clothe.price}}</p>
+            <h2>${{clothe.price}}</h2>
+        </div>
+        <button type="button" *ngIf="clothe.size" (click)="agregarCarrito(clothe)">
+            Agregar
+        </button>
+    </div>
+</div>

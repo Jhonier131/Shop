@@ -1,0 +1,47 @@
+<div class="container">
+
+    <div class="header_tshirt">
+        <h1>¡Exprésate! Camisetas Que Hablan por Ti</h1>
+    </div>
+
+    <!-- <div class="container_filter">
+        <div class="filter_menu">
+            <h1>Filtrar</h1>
+        </div>
+        <div class="filter">
+            <h1>Ordenar por: </h1>
+            <mat-form-field appearance="fill">
+                <mat-label>Choose an option</mat-label>
+                <mat-select>
+                    <mat-option value="option1">Option 1</mat-option>
+                    <mat-option value="option2">Option 2</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div> -->
+
+    <div class="filter_category">
+        <ul>
+            <li (click)="filterCategory(2)" [class.selectedCategory]="category == 2">Camisetas</li>
+            <li (click)="filterCategory(3)" [class.selectedCategory]="category == 3">Jeans</li>
+            <li (click)="filterCategory(1)" [class.selectedCategory]="category == 1">Vestidos</li>
+            <li (click)="filterCategory(4)" [class.selectedCategory]="category == 4">Tops</li>
+        </ul>
+    </div>
+
+    <div class="womens_section" *ngIf="allClothes.length; else anyClothes">
+        <div *ngFor="let item of allClothes">
+            <app-product-card [clothe]="item"></app-product-card>
+        </div>
+    </div>
+    <ng-template #anyClothes>
+        <div class="anyClothes">
+            <h1>No hay productos disponibles en este momento.</h1>
+        </div>
+    </ng-template>
+</div>
+
+<!-- Loading -->
+<div class="content-loader" *ngIf="loader">
+    <app-loader></app-loader>
+</div>

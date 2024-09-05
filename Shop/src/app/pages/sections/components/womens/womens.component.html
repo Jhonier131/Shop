@@ -1,68 +1,88 @@
 <div class="container-womens">
-
-    <div class="womens_header">
-        <div class="header"></div>
-        <div class="header_filter">
-            <div>Camisetas</div>
-            <div>Jeans</div>
-            <div>Vestidos</div>
-        </div>
+  <div class="womens_header">
+    <div class="header"></div>
+    <div class="header_filter">
+      <div (click)="goCategory(2)">Camisetas</div>
+      <div (click)="goCategory(3)">Jeans</div>
+      <div (click)="goCategory(1)">Vestidos</div>
     </div>
+  </div>
 
-    <div class="header_promotional">
-        <h1>Descubre tu estilo</h1>
-        <p>Explora nuestra colección exclusiva y encuentra las piezas perfectas para completar tu look.</p>
-        <div class="prom_btn">
-            <button>Pantalones y jeans</button>
-            <button>Camisetas y tops</button>
-        </div>
+  <div class="header_promotional">
+    <h1>Descubre tu estilo</h1>
+    <p>
+      Explora nuestra colección exclusiva y encuentra las piezas perfectas para
+      completar tu look.
+    </p>
+    <div class="prom_btn">
+      <button>Pantalones y jeans</button>
+      <button>Camisetas y tops</button>
     </div>
+  </div>
 
-
-    <div class="container_filter">
-        <div class="filter_menu">
-            <h1>Filtrar</h1>
-        </div>
-        <div class="filter">
-            <h1>Ordenar por: </h1>
-            <!-- <mat-form-field appearance="fill">
-                <mat-label>Choose an option</mat-label>
-                <mat-select>
-                    <mat-option value="option1">Option 1</mat-option>
-                    <mat-option value="option2">Option 2</mat-option>
-                </mat-select>
-            </mat-form-field> -->
-        </div>
+  <div class="container_filter">
+    <div class="filter_menu">
+      <h1>Filtrar</h1>
     </div>
+    <div class="filter">
+      <h1>Ordenar por:</h1>
+    </div>
+  </div>
 
-    <div class="womens_section">
-        <div *ngFor="let item of allClothes">
-            <div class="container_card">
-                <figure>
-                    <div class="list_size" [ngClass]="{'souldOut_image': !item.size}">
-                        <p *ngIf="item.size || item.size">-{{item.offSale}}%</p>
-                        <img src="{{item.image}}" alt="Imagen del producto." />
-                        <div class="tallas-container" *ngIf="item.size; else souldOut">
-                            <button *ngFor="let talla of item.size" (click)="seleccionarTalla(item, talla)" [class.selected]="item?.talla === talla">
-                                {{ talla }}
-                            </button>
-                        </div>
-                        <ng-template #souldOut>
-                            <div class="container_souldout">AGOTADO</div>
-                        </ng-template>
-                    </div>
-                </figure>
-                <div class="card_body">
-                    <h1>{{item.name}}</h1>
-                    <div class="price">
-                        <p *ngIf="item.size || item.size">${{item.price}}</p>
-                        <h2>${{item.price}}</h2>
-                    </div>
-                    <button type="button" *ngIf="item.size" (click)="agregarCarrito(item)">
-                        Agregar
-                    </button>
-                </div>
+  <div class="womens_section" #womensSection>
+    <div *ngFor="let item of allClothes">
+      <app-product-card [clothe]="item"></app-product-card>
+    </div>
+  </div>
+</div>
+
+
+<div class="footer finalWomen">
+    <h1>Footer</h1>
+</div>
+<!-- <div class="paginator">
+    <nav aria-label="Page navigation ">
+        <ul class="pagination">
+          <li class="page-item" (click)="nextPage(pagination.page = pagination.page - 1)">
+            <a class="page-link" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li class="page-item" (click)="nextPage(1)"><a class="page-link">1</a></li>
+          <li class="page-item" (click)="nextPage(2)"><a class="page-link">2</a></li>
+          <li class="page-item" (click)="nextPage(3)"><a class="page-link">3</a></li>
+          <li class="page-item" (click)="nextPage(pagination.page = pagination.page + 1)">
+            <a class="page-link" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+</div> -->
+
+<!-- <div class="container_menu">
+    <div class="menu_filter">
+        <div class="close_filter">
+            <p>X</p>
+        </div>
+        <div class="category">
+            <h1>Categorias</h1>
+            <div class="category_type">
+                <p>Pantalones</p>
+            </div>
+            <div class="category_type">
+                <p>Camisetas</p>
+            </div>
+            <div class="category_type">
+                <p>Tops</p>
+            </div>
+            <div class="category_type">
+                <p>Faldas</p>
             </div>
         </div>
     </div>
+</div> -->
+
+<div class="content-loader" *ngIf="loader">
+  <app-loader></app-loader>
 </div>

@@ -41,7 +41,7 @@ h6 {
   display: none;
 }
 
-.navbar {
+.navbar_items {
   width: 80%;
   display: flex;
   margin: 0 auto;
