@@ -4,7 +4,7 @@
             <p *ngIf="clothe.size && clothe.offSale > 0">-{{clothe.offSale}}%</p>
             <img src="{{clothe.image}}" alt="Imagen del producto." />
             <div class="tallas-container" *ngIf="clothe.size; else souldOut">
-                <button *ngFor="let talla of clothe.size" (click)="seleccionarTalla(clothe, talla)" [class.selected]="clothe?.talla === talla">
+                <button *ngFor="let talla of clothe.size" (click)="seleccionarTalla(talla)" [class.selected]="clothe?.talla === talla">
                     {{ talla }}
                 </button>
             </div>
@@ -19,7 +19,7 @@
             <p *ngIf="clothe.size || clothe.size">${{clothe.price}}</p>
             <h2>${{clothe.price}}</h2>
         </div>
-        <button type="button" *ngIf="clothe.size" (click)="agregarCarrito(clothe)">
+        <button type="button" *ngIf="clothe.size" (click)="agregarCarrito()">
             Agregar
         </button>
     </div>

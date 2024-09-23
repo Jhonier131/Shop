@@ -17,15 +17,16 @@ export class ProductCardComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  seleccionarTalla(item: any, talla: string): void {
+  seleccionarTalla(talla: string): void {
     this.clothe = {
       ...this.clothe,
       talla
     }
   }
 
-  agregarCarrito(item:any) {
-    this.carStoreService.addNewItem(this.clothe);
+  agregarCarrito() {
+    if(!this.clothe.talla) return alert('Debes seleccionar una talla');
+    this.carStoreService.addNewItem(this.clothe);  
   }
 
 }

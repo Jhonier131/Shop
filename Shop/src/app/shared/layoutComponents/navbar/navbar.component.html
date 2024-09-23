@@ -45,7 +45,7 @@
                             <p (click)="decreaseQuantity(item)" class="item_decrease">-</p>
                             <p>{{item.quantity}}</p>
                             <p (click)="increaseQuantity(item)" class="item_increase">+</p>
-                            <p>${{item.price}}</p>
+                            <p>{{item.price | currency: ' '}}</p>
                         </div>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
         <div class="container_total">
             <div class="total_zone">
                 <h1 class="total">Total</h1>
-                <p>{{getTotal()}}</p>
+                <p>${{getTotal() | currency: ' '}}</p>
             </div>
             <button class="car_button" (click)="saleProducts()">Comprar</button>
         </div>

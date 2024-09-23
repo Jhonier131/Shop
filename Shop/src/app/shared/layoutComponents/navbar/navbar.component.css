@@ -250,11 +250,12 @@ h6 {
 
 .container_total {
   position: relative;
-  height: 30rem;
+  height: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   width: 100%;
+  padding-top: 1rem;
 }
 
 .car_button {

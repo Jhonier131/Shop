@@ -9,13 +9,16 @@ const methodReducer = createReducer(
     initialState,
     on(carAction.addItem, (state, { newItem }) => {
 
+      console.log('newItem', newItem);
+      console.log('state', state);
+
         let myCartItems = [...state.carItems];
         const exist = myCartItems.filter((item: any) => {
           if(item.id === newItem.id) return item;
         });
 
         if(exist.length) {
-          // alert('Este producto ya se encuentra en el carrito')
+          alert('Este producto ya se encuentra en el carrito')
           return {...state};
         }
         else return {
